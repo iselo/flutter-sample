@@ -7,6 +7,16 @@ class FloatingMenuButton extends StatelessWidget {
 
   const FloatingMenuButton({super.key, this.backgroundColor});
 
+  @override
+  Widget build(BuildContext context) {
+    return FloatingActionButton(
+      backgroundColor: backgroundColor,
+      onPressed: () => _openMenu(context),
+      tooltip: 'Menu',
+      child: const Icon(Icons.menu),
+    );
+  }
+
   void _openMenu(BuildContext context) {
     showModalBottomSheet(
       context: context,
@@ -17,51 +27,10 @@ class FloatingMenuButton extends StatelessWidget {
         return SafeArea(
           child: Column(
             mainAxisSize: MainAxisSize.min,
-            children: [
-              ListTile(
-                leading: const Icon(Icons.home_outlined),
-                title: Text(Endpoint.dashboard.title),
-                onTap: () => Endpoint.dashboard.open(context),
-              ),
-              ListTile(
-                leading: const Icon(Icons.account_balance_outlined),
-                title: Text(Endpoint.accounting.title),
-                onTap: () => Endpoint.accounting.open(context),
-              ),
-              ListTile(
-                leading: const Icon(Icons.settings_outlined),
-                title: Text(Endpoint.settings.title),
-                onTap: () {
-                  Navigator.pop(context);
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Settings selected')),
-                  );
-                },
-              ),
-              ListTile(
-                leading: const Icon(Icons.logout_outlined),
-                title: Text(Endpoint.logout.title),
-                onTap: () {
-                  Navigator.pop(context);
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Logged out')),
-                  );
-                },
-              ),
-            ],
+            children: Endpoint.values.map((e)=>e.newListTile(context)).toList()
           ),
         );
       },
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return FloatingActionButton(
-      backgroundColor: backgroundColor,
-      onPressed: () => _openMenu(context),
-      tooltip: 'Menu',
-      child: const Icon(Icons.menu),
     );
   }
 }
