@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../widget/floating_menu_button.dart';
+import 'widget/floating_menu_button.dart';
+import 'widget/toolbar.dart';
 import 'endpoint.dart';
 
 class AccountingPage extends StatelessWidget {
@@ -10,13 +11,10 @@ class AccountingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
     return Scaffold(
-      appBar: AppBar(
-        title: Text(Endpoint.accounting.title),
-        backgroundColor: colorScheme.primaryContainer,
-      ),
+      // appBar: const ToolBar(),
       body: Center(
         child: Text(
-          'Welcome',
+          'Accounting',
           style: Theme.of(
             context,
           ).textTheme.headlineMedium?.copyWith(color: colorScheme.primary),

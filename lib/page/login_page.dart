@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:untitled/helper/email_validator.dart';
 
 import '../helper/password_validator.dart';
+import 'endpoint.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -11,7 +12,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final _formKey = GlobalKey<FormState>();
+  final _loginFormKey = GlobalKey<FormState>();
 
   final _emailController = TextEditingController();
 
@@ -34,7 +35,7 @@ class _LoginPageState extends State<LoginPage> {
           child: ConstrainedBox(
             constraints: BoxConstraints(maxWidth: formWidth),
             child: Form(
-              key: _formKey,
+              key: _loginFormKey,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
@@ -46,7 +47,7 @@ class _LoginPageState extends State<LoginPage> {
                       border: OutlineInputBorder(),
                     ),
                     keyboardType: TextInputType.emailAddress,
-                    validator: EmailValidator().validate,
+                    validator: const EmailValidator().validate,
                   ),
 
                   const SizedBox(height: 16),
@@ -85,13 +86,9 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void _onLogin() {
-    final form = _formKey.currentState;
+    final form = _loginFormKey.currentState;
     if (form != null && form.validate()) {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(const SnackBar(content: Text('Logging in...')));
-
-      Navigator.pushReplacementNamed(context, '/dashboard');
+      Navigator.pushReplacementNamed(context, Endpoint.dashboard.routeName);
     }
   }
 }
