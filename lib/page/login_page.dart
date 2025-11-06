@@ -25,10 +25,6 @@ class _LoginPageState extends State<LoginPage> {
     final formWidth = screenWidth > 400 ? 400.0 : screenWidth * 0.9;
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Login page'),
-        backgroundColor: colorScheme.primaryContainer,
-      ),
       body: Center(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(24.0),
