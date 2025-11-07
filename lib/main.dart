@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'page/accounting_page.dart';
 import 'page/dashboard_page.dart';
@@ -15,19 +16,23 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+    return ChangeNotifierProvider(
+      create: (context) => MyAppState(),
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+        ),
+        home: const LoginPage(),
+        routes: {
+          Endpoint.dashboard.routeName: (context) => const DashboardPage(),
+          Endpoint.accounting.routeName: (context) => const AccountingPage(),
+          Endpoint.settings.routeName: (context) => const SettingsPage(),
+          Endpoint.logout.routeName: (context) => const LoginPage(),
+        },
       ),
-      home: const LoginPage(),
-      routes: {
-        Endpoint.dashboard.routeName: (context) => const DashboardPage(),
-        Endpoint.accounting.routeName: (context) => const AccountingPage(),
-        Endpoint.settings.routeName: (context) => const SettingsPage(),
-        Endpoint.logout.routeName: (context) => const LoginPage(),
-      },
     );
   }
 }
 
+class MyAppState extends ChangeNotifier {}
