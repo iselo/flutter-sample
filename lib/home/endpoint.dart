@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 
 enum Endpoint {
-  dashboard('/dashboard', 'Dashboard', Icons.home_outlined),
-  accounting('/accounting', 'Accounting', Icons.account_balance_outlined),
-  settings('/settings', 'Settings', Icons.settings_outlined),
-  logout('/logout', 'Logout', Icons.logout_outlined);
+  settings('/settings', 'Settings', Icons.settings),
+  about('/about', 'About', Icons.info);
 
   final String routeName;
   final String title;

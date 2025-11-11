@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'page/accounting_page.dart';
-import 'page/dashboard_page.dart';
-import 'page/endpoint.dart';
-import 'page/login_page.dart';
-import 'page/settings_page.dart';
+import 'home/home_page.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  //  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -16,20 +14,40 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final lightColorScheme = ColorScheme.fromSeed(
+      seedColor: Colors.indigo,
+      brightness: Brightness.light
+    );
+    final darkColorScheme = ColorScheme.fromSeed(
+        seedColor: Colors.indigo,
+        brightness: Brightness.dark
+    );
     return ChangeNotifierProvider(
       create: (context) => MyAppState(),
       child: MaterialApp(
-        title: 'Flutter Demo',
+        title: 'Doctor Planer',
         theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+          colorScheme: lightColorScheme,
+          appBarTheme: AppBarTheme(
+            backgroundColor: lightColorScheme.primary,
+            foregroundColor: lightColorScheme.onPrimary,
+          ),
         ),
-        home: const LoginPage(),
-        routes: {
-          Endpoint.dashboard.routeName: (context) => const DashboardPage(),
-          Endpoint.accounting.routeName: (context) => const AccountingPage(),
-          Endpoint.settings.routeName: (context) => const SettingsPage(),
-          Endpoint.logout.routeName: (context) => const LoginPage(),
-        },
+        darkTheme: ThemeData(
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+          colorScheme: darkColorScheme,
+          appBarTheme: AppBarTheme(
+            backgroundColor: darkColorScheme.primary,
+            foregroundColor: darkColorScheme.onPrimary,
+          ),
+        ),
+        home: const HomePage(),
+        // routes: {
+        //   Endpoint.patients.routeName: (context) => const PatientsPage(),
+        //   Endpoint.appointments.routeName: (context) => const AppointmentsPage(),
+        //   Endpoint.about.routeName: (context) => const AboutPage(),
+        // },
       ),
     );
   }
